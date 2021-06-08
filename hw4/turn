@@ -1,0 +1,68 @@
+#!/usr/bin/tcsh 
+
+if ( $# == 0 ) then
+   set msg = "You must supply an object."
+else if ((( "$1" =~ [19defnstuvw]* )&&( "$1" !~ [dfstuw]*[ignwvpo][npeah][dylrt] ))\
+        ||( ! -f ~/_/filenamesdir/$1 )) then
+   set msg = "I don't know what that is."
+else if ( ! -e $1 ) then
+   set msg = "I don't see that here."
+else if ( -e $1 && $1 != "dial" ) then
+   set msg = "You can't turn that."
+endif
+if ( $?msg ) then
+   echo $msg
+   exit 1
+endif 
+
+if ( $2 == "clockwise" ) then
+   set tn = `ls temp* | cut -d e -f4 | xargs expr 1 +`
+else if ( $2 == "counterclockwise" ) then
+   set tn = `ls temp* | cut -d e -f4 | xargs expr -1 +`
+else 
+   echo You must indicate clockwise or counterclockwise.
+   exit 2
+endif
+
+# 6 to die
+set s = ("The dial will not turn further in that direction." "The temperature has returned to normal room temperature." "It is now luke warm in here.  You are perspiring." "It is pretty hot in here.  It is still very comfortable." "It is now very hot.  There is something very refreshing about this." "As the dial clicks into place, you immediately burst into flames.@@You are dead.")
+
+echo $s[$tn] | tr @ "\n"
+
+switch ( $tn )
+   case 1:
+      set tn = 2
+      exit 1
+      breaksw
+   case 2:
+   case 3:
+   case 4:
+   case 5:
+      if ( (-f ~/_/i/i/floppy || -f floppy )&& $tn == 5 ) then
+         echo You notice the wax on your statuette beginning to melt, until it completely
+         echo melts off. \ You are left with a beautiful diamond!
+         rm ~/_/i/i/floppy >& ~/X
+         rm floppy >& ~/X
+      endif
+      if ( (-f ~/_/i/i/rms || -f rms ) && $tn == 5 ) then
+         echo You notice your floppy disk beginning to melt. \ As you grab for it, the
+         echo disk bursts into flames, and disintegrates.
+         ls rms >& ~/X && (rm rms >& ~/X; touch diamond)
+         (cd ~/_/i/i; ls rms >& ~/X && (rm rms >& ~/X; touch diamond))
+      endif
+      set now = `ls temp* | cut -d e -f4`
+      mv temperature$now .temperature$now
+      mv .temperature$tn temperature$tn
+      exit 1
+      breaksw
+   case 6:
+      exit 0
+      breaksw
+   default:
+      exit 1
+      breaksw
+endsw
+
+
+
+

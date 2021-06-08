@@ -1,0 +1,93 @@
+#!/usr/bin/tcsh 
+#section 1
+if ( $# == 0 ) echo You must supply an object.
+if ( $# == 0 ) exit 
+
+#section 2
+if ( $1 == "emerald" ) then
+    set temp = "bracelet"
+else if ( $1 == "life" ) then
+    set temp = "preserver"
+else if ( $1 == "disk" ) then
+    set temp = "floppy"
+else if ( $1 == "Stallman" || $1 == "stallman" || "$1" =~ statue*) then 
+    set temp = "rms"
+endif
+
+#section 3
+cp *[aworkv][maxslept]*[mykdrslept] ~/_/i/_ >& ~/X
+
+#section 4 5 6
+if ( $1 == "all" ) then
+    rm *[arokvw][xaslempt]*[etdyprmlsk] >& ~/X || echo Nothing to take.
+    if ( `ls ~/_/i/_ | wc -l` == 0 ) exit
+else if ( -f ~/_/i/_/$1 ) then
+    rm ~/_/i/_/*
+    mv $1 ~/_/i/_
+else
+    rm ~/_/i/_/* >& ~/X
+    if ( -f ~/_/filenamesdir/$1 == 0 ) then
+        echo I do not know what that is.
+    else if ( -f $1 && "$1" !~ *[aworkv][maxslept]*[mykdrslept] ) then
+        echo You cannot take that.
+    else 
+        echo I do not see that here.
+    endif
+endif
+
+#section 7
+(cd ~/_/i; ls fi*dir/*[abdltuiokdnvrg][xeoltanbkmuah][edrxtnlmypgs] fi*dir/[drs]*[emn][dsl] fi*dir/preserver fi*dir/preserver fi*dir/weight fi*dir/weight fi*dir/weight fi*dir/weight fi*dir/weight fi*dir/weight fi*dir/weight fi*dir/weight fi*dir/weight | wc -l | egrep 11 ) >& ~/X && echo Your load would be too heavy. && mv ~/_/i/_/* . && exit
+
+#section 8
+if ( "$PWD" =~ */buttonRoom && $1 == "button" ) then
+    mv nw .nw
+    mv .u u
+    rm d
+    rm e
+    rm ne
+    rm se
+    rm sw
+    rm w
+endif
+
+cd ~/_/i/_
+
+#section 9
+if ( $1 != "all" ) then
+    mv * ../i >& ~/X && echo Taken.
+    exit
+endif
+
+#section 10
+foreach item (*)
+    switch (item)
+        case key :
+            echo -n A brass key
+            breaksw
+        case paper :
+            echo -n A slip of paper
+            breaksw
+        case preserver :
+            echo -n A life preserver 
+            breaksw
+        case floppy :
+            echo -n A floppy disk
+            breaksw
+        case rms :
+            echo -n An RMS statuette
+            breaksw
+        case gold : 
+        case platinum :
+        case silver :
+            echo -n A $item bar
+            breaksw
+        default :
+            echo $item | grep '^[aeiou].*' >& ~/X && echo -n An $item || echo -n A $item
+            breaksw
+    endsw
+    echo ": Taken."
+end
+mv * ../i
+
+
+
